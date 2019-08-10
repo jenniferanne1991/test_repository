@@ -6,7 +6,7 @@ class TimesheetTest < ActiveSupport::TestCase
   # end
 
   def setup
-  	@timesheet = Timesheet.new(start: DateTime.new(2019,8,8,12,00), finish: DateTime.new(2019,8,8,19,30))
+  	@timesheet = Timesheet.new(date: Date.new(2019,8,8), start: Time.new(2019,8,8,12,00), finish: Time.new(2019,8,8,19,30))
   end
 
   test "should be valid" do
@@ -24,14 +24,16 @@ class TimesheetTest < ActiveSupport::TestCase
   end
 
   test "finish time must be after start" do
-  	@timesheet.start = DateTime.now
-  	@timesheet.finish = DateTime.now - 0.2
+    @timesheet.date = Date.today
+  	@timesheet.start = Time.now
+  	@timesheet.finish = Time.now - 1800
   	assert_not @timesheet.valid?
   end
 
-  test "finish time cannot be in future" do
-  	@timesheet.start = DateTime.now - 0.2
-  	@timesheet.finish = DateTime.now + 0.2
+  test "date cannot be in future" do
+  	@timesheet.date = Date.today + 2.days
+    @timesheet.start = Time.now - 1800
+    @timesheet.finish = Time.now
   	assert_not @timesheet.valid?
   end
 

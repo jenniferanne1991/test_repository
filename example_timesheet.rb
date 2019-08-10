@@ -1,13 +1,14 @@
 class Timesheet
-	attr_accessor :start, :finish
+	attr_accessor :date, :start, :finish
 
 	def initialize(attributes = {})
+		@date = attributes[:date]
 		@start = attributes[:start]
 		@finish = attributes[:finish]
 	end
 
 	def formatted_entry
-		@start.strftime('%d/%m/%Y: %I:%M%P') + ' - ' + @finish.strftime('%I:%M%P')
+		@date.strftime('%d/%m/%Y: ') + @start.strftime('%I:%M%P - ') + @finish.strftime('%I:%M%P')
 	end
 
 end
