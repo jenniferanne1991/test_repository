@@ -7,6 +7,10 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.find(params[:id])
   end
 
+  def index
+    @timesheets = Timesheet.all
+  end
+  
   def create
   	@timesheet = Timesheet.new(timesheet_params)
   	if @timesheet.save

@@ -13,6 +13,11 @@ class TimesheetTest < ActiveSupport::TestCase
   	assert @timesheet.valid?
   end
 
+  test "date must be present" do
+    @timesheet.date = nil
+    assert_not @timesheet.valid?
+  end
+
   test "start time must be present" do
   	@timesheet.start = nil
   	assert_not @timesheet.valid?
@@ -24,7 +29,6 @@ class TimesheetTest < ActiveSupport::TestCase
   end
 
   test "finish time must be after start" do
-    @timesheet.date = Date.today
   	@timesheet.start = Time.now
   	@timesheet.finish = Time.now - 1800
   	assert_not @timesheet.valid?
@@ -32,8 +36,6 @@ class TimesheetTest < ActiveSupport::TestCase
 
   test "date cannot be in future" do
   	@timesheet.date = Date.today + 2.days
-    @timesheet.start = Time.now - 1800
-    @timesheet.finish = Time.now
   	assert_not @timesheet.valid?
   end
 

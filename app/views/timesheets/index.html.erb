@@ -1,0 +1,16 @@
+<h1>Listing timesheets</h1>
+
+<table>
+
+<% @timesheets.each do |timesheet| %>
+  <tr>
+    <td style="padding:5px"><%= timesheet.date.strftime('%d/%m/%Y:') %></td>
+    <td style="padding:5px"><%= timesheet.start.strftime('%I:%M%P') %> - <%= timesheet.finish.strftime('%I:%M%P') %></td>
+    <td style="padding:5px">$<%= timesheet_value(timesheet.date, timesheet.start, timesheet.finish) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br>
+
+<%= link_to 'New timesheet', new_url %>
