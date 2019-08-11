@@ -6,7 +6,7 @@
   <tr>
     <td style="padding:5px"><%= timesheet.date.strftime('%d/%m/%Y:') %></td>
     <td style="padding:5px"><%= timesheet.start.strftime('%I:%M%P') %> - <%= timesheet.finish.strftime('%I:%M%P') %></td>
-    <td style="padding:5px">$<%= timesheet_value(timesheet.date, timesheet.start, timesheet.finish) %></td>
+    <td style="padding:5px">$<%= number_with_precision(timesheet.pay, precision: 2) %></td>
   </tr>
 <% end %>
 </table>
