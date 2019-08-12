@@ -1,9 +1,9 @@
 <% provide(:title, "New Timesheet") %>
-<h2>Create new timesheet</h2>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@timesheet, url:new_path) do |f| %>
+      <h2>Create new timesheet</h2>
     	<%= render 'shared/error_messages' %>
     	<%= f.label :date %>
     	<br>

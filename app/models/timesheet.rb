@@ -3,7 +3,9 @@ class Timesheet < ApplicationRecord
 	validates :finish, presence: true
 	validates :date, presence: true
 
-	validate :start_must_be_before_finish, :date_cannot_be_in_future
+	validate :start_must_be_before_finish
+	validate :date_cannot_be_in_future
+	validate :timesheet_entries_must_not_overlap
 
 	def date_cannot_be_in_future
 		if date.present? && date > Date.today
@@ -14,6 +16,20 @@ class Timesheet < ApplicationRecord
 	def start_must_be_before_finish
 		if start.present? && finish.present? && start >= finish
 			errors.add(:finish, "time must be after start time")
+		end
+	end
+
+	def timesheet_entries_must_not_overlap
+		same_date_timesheets = Timesheet.where(date: date).where.not(id:self.id)
+		if same_date_timesheets == nil
+			return
+		end
+		same_date_timesheets.each do |same_date_timesheet|
+      unless same_date_timesheet.finish < start or finish < same_date_timesheet.start
+      	unless errors.added?(:This, "overlaps with an exiting timesheet entry")
+        	errors.add(:This, "overlaps with an exiting timesheet entry")
+        end
+      end
 		end
 	end
 
