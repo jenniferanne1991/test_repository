@@ -16,7 +16,7 @@ class TimesheetsController < ApplicationController
   	if @timesheet.save
       @timesheet.pay = timesheet_value(@timesheet.date, @timesheet.start, @timesheet.finish)
   		@timesheet.save
-      redirect_to @timesheet
+      redirect_to root_url
   	else
   		render 'new'
   	end
