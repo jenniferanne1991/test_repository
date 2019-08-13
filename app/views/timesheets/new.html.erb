@@ -1,23 +1,21 @@
 <% provide(:title, "New Timesheet") %>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@timesheet, url:new_path) do |f| %>
-      <h2>Create new timesheet</h2>
-    	<%= render 'shared/error_messages' %>
-    	<%= f.label :date %>
-    	<br>
-      <%= f.date_field :date, class: 'form-control' %>
-      <br padding-bottom: 10px>
-      <%= f.label :start %>
-      <br>
-      <%= f.time_field :start, class: 'form-control' %>
-      <br padding-bottom: 10px>
-      <%= f.label :finish %>
-      <br>
-      <%= f.time_field :finish, class: 'form-control' %>
-      <br padding-bottom: 10px>
-      <%= f.submit "Submit timesheet", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <%= form_for(@timesheet, url:new_path) do |f| %>
+    <h2>Create new timesheet</h2>
+  	<%= render 'shared/error_messages' %>
+  	<%= f.label :date %>
+  	<br>
+    <%= f.date_field :date, class: 'form-control' %>
+    <br padding-bottom: 10px>
+    <%= f.label :start %>
+    <br>
+    <%= f.time_field :start, class: 'form-control' %>
+    <br padding-bottom: 10px>
+    <%= f.label :finish %>
+    <br>
+    <%= f.time_field :finish, class: 'form-control' %>
+    <br padding-bottom: 10px>
+    <%= f.submit "Submit timesheet", class: "button" %>
+  <% end %>
 </div>

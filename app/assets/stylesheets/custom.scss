@@ -15,7 +15,8 @@ $gray-medium-light: #eaeaea;
 
 body {
   margin-top: 30px;
-  margin-left: 50px
+  margin-left: 50px;
+  background-color: $gray-medium-light;
 }
 
 section {
@@ -75,7 +76,7 @@ form {
 /* input, error messages etc */
 
 .button {
-  background-color: #3f80bf;
+  background-color: #7c868f;
   border: none;
   color: white;
   padding: 8px 30px;
