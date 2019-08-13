@@ -1,8 +1,10 @@
 # Ruby on Rails Timesheet Application
 
-This is a timesheet application built by Jennifer Ralph.
+This is a timesheet application built by Jennifer Ralph. For specifications such as validations and timesheet calculations, please see "Timesheet_app_specifications.pdf"
 
+## Assumptions
 
+It is assumed that each timesheet entry occurs in a single day, i.e. the user does not have a shift that runs over midnight.
 
 ## Getting started
 

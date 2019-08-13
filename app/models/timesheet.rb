@@ -25,9 +25,10 @@ class Timesheet < ApplicationRecord
 			return
 		end
 		same_date_timesheets.each do |same_date_timesheet|
+			# Given entries have the same date, must ensure one finishes before the other starts
       unless same_date_timesheet.finish < start or finish < same_date_timesheet.start
-      	unless errors.added?(:This, "overlaps with an exiting timesheet entry")
-        	errors.add(:This, "overlaps with an exiting timesheet entry")
+      	unless errors.added?(:This, "entry overlaps with an exiting timesheet entry")
+        	errors.add(:This, "entry overlaps with an exiting timesheet entry")
         end
       end
 		end
