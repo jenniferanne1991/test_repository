@@ -17,7 +17,7 @@ class TimesheetsNewTest < ActionDispatch::IntegrationTest
 	end
 
 	# Check that a timesheet is successfully created when valid data is entered.
-	test "valid timesheet information" do
+	test "valid timesheet information saturday" do
 		get new_path
 		assert_difference 'Timesheet.count', 1 do
 			post timesheets_path, params: { timesheet:{
@@ -29,6 +29,48 @@ class TimesheetsNewTest < ActionDispatch::IntegrationTest
 		follow_redirect!
 		assert_template 'timesheets/index'
 		assert Timesheet.last.pay == 493.50
+	end
+
+	test "valid timesheet information thursday" do
+		get new_path
+		assert_difference 'Timesheet.count', 1 do
+			post timesheets_path, params: { timesheet:{
+				date: Date.new(2019,8,8),
+				start: Time.httpdate("Thu, 08 Aug 2019 12:00:00 GMT"),
+				finish: Time.httpdate("Thu, 08 Aug 2019 20:15:00 GMT")}	}
+		end
+		# Check that the app redirects to index and correctly calculates pay.
+		follow_redirect!
+		assert_template 'timesheets/index'
+		assert Timesheet.last.pay == 238.75
+	end
+
+	test "valid timesheet information wednesday across peak" do
+		get new_path
+		assert_difference 'Timesheet.count', 1 do
+			post timesheets_path, params: { timesheet:{
+				date: Date.new(2019,8,7),
+				start: Time.httpdate("Wed, 07 Aug 2019 04:00:00 GMT"),
+				finish: Time.httpdate("Wed, 07 Aug 2019 21:30:00 GMT")}	}
+		end
+		# Check that the app redirects to index and correctly calculates pay.
+		follow_redirect!
+		assert_template 'timesheets/index'
+		assert Timesheet.last.pay == 445.5
+	end
+
+	test "valid timesheet information wednesday outside peak" do
+		get new_path
+		assert_difference 'Timesheet.count', 1 do
+			post timesheets_path, params: { timesheet:{
+				date: Date.new(2019,8,7),
+				start: Time.httpdate("Wed, 07 Aug 2019 05:00:00 GMT"),
+				finish: Time.httpdate("Wed, 07 Aug 2019 06:30:00 GMT")}	}
+		end
+		# Check that the app redirects to index and correctly calculates pay.
+		follow_redirect!
+		assert_template 'timesheets/index'
+		assert Timesheet.last.pay == 49.5
 	end
 
 	test "overlapping timesheet entries" do
